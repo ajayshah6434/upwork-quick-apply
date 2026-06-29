@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Upwork Quick Apply — GitHub Actions Version
+Upwork Quick Apply â GitHub Actions Version
 --------------------------------------------
-Computer OFF bhi kaam karta hai — GitHub ke servers pe run hota hai.
+Computer OFF bhi kaam karta hai â GitHub ke servers pe run hota hai.
 RSS Feeds se 25 keywords ki targeted jobs fetch karta hai (FREE).
 Qualified jobs pe Elite Prompt v2.0 + Sonnet se proposal generate karta hai.
 Email notification dono ko bhejta hai.
@@ -24,7 +24,7 @@ from notifier import notify_new_jobs
 
 load_dotenv()
 
-# ── Config ─────────────────────────────────────────────────────────────────────
+# ââ Config âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 SEEN_JOBS_FILE      = "seen_jobs.json"
 MAX_PROPOSALS       = 5
 MIN_BUDGET          = 50
@@ -32,7 +32,7 @@ ACTIVE_HOURS_START  = 9    # 9 AM IST
 ACTIVE_HOURS_END    = 24   # Midnight IST
 SKIP_SUNDAY         = True
 
-# ── 25 RSS Keywords ─────────────────────────────────────────────────────────────
+# ââ 25 RSS Keywords âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 RSS_KEYWORDS = [
     # Core specialty
     "GeoDirectory", "HivePress", "Brilliant Directories",
@@ -50,7 +50,7 @@ RSS_KEYWORDS = [
     "WordPress migration", "ACF WordPress", "WordPress developer",
 ]
 
-# ── Portfolio links ─────────────────────────────────────────────────────────────
+# ââ Portfolio links âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 PORTFOLIO = {
     "geodirectory": [
         "https://opensupplyco.com/", "https://easywedding.me/",
@@ -72,7 +72,7 @@ PORTFOLIO = {
 }
 
 
-# ── Helpers ─────────────────────────────────────────────────────────────────────
+# ââ Helpers âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 def now_str():
     return datetime.now().strftime("%H:%M:%S")
 
@@ -101,7 +101,7 @@ def save_seen_jobs(seen: set):
         json.dump(list(seen)[-1000:], f, indent=2)
 
 
-# ── RSS Scraping (FREE) ─────────────────────────────────────────────────────────
+# ââ RSS Scraping (FREE) âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 def scrape_jobs_rss() -> list:
     import feedparser
 
@@ -199,7 +199,7 @@ def filter_new_jobs(jobs: list, seen: set) -> list:
     return new
 
 
-# ── Portfolio Detection ─────────────────────────────────────────────────────────
+# ââ Portfolio Detection âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 def detect_job_type(job: dict) -> str:
     text = (
         job.get("title", "") + " " +
@@ -221,7 +221,7 @@ def get_portfolio_links(job_type: str, count: int = 3) -> list:
     return random.sample(pool, min(count, len(pool)))
 
 
-# ── Proposal Generation — Elite Prompt v2.0 + Claude Sonnet ────────────────────
+# ââ Proposal Generation â Elite Prompt v2.0 + Claude Sonnet ââââââââââââââââââââ
 def generate_cover_letter(job: dict) -> str:
     import anthropic
     client = anthropic.Anthropic()
@@ -231,9 +231,9 @@ def generate_cover_letter(job: dict) -> str:
     portfolio_str   = "\n".join(f"- {link}" for link in portfolio_links)
 
     labels = {"geodirectory": "GeoDirectory", "hivepress": "HivePress", "bd": "BD/WordPress"}
-    print(f"    Type: {labels[job_type]} → portfolio injected")
+    print(f"    Type: {labels[job_type]} â portfolio injected")
 
-    system_prompt = f"""# Claude System Prompt — Elite Upwork Proposal Strategist v2.0
+    system_prompt = f"""# Claude System Prompt â Elite Upwork Proposal Strategist v2.0
 
 ## ROLE
 You are an elite Upwork Proposal Strategist, Sales Consultant, Client Psychology Expert, and Technical Solution Architect.
@@ -242,18 +242,18 @@ Every proposal must feel personally written by an experienced consultant after s
 Never generate generic proposals. Never sound like AI. Optimize for trust before selling.
 
 # ABOUT ME
-Bharat A. — GeoDirectory specialist, 50+ GeoDirectory sites built, HivePress expert (30+ marketplaces), 124 Upwork jobs, Top Rated, 96% JSS, 5.0 stars.
+Bharat A. â GeoDirectory specialist, 50+ GeoDirectory sites built, HivePress expert (30+ marketplaces), 124 Upwork jobs, Top Rated, 96% JSS, 5.0 stars.
 Strengths: Business-first, excellent communication, clean code, long-term support, honest estimates, fast response.
 Never invent experience. Never fabricate numbers or projects.
 
-# RELEVANT PORTFOLIO (use 1-2 naturally in proposal — not as a list)
+# RELEVANT PORTFOLIO (use 1-2 naturally in proposal â not as a list)
 {portfolio_str}
 
 # GLOBAL RULES
 Always write for one specific client. Never use templates. Never exaggerate.
 Never use emojis, hype, or AI words (excited/passionate/leverage/utilize/best-in-class).
 Never sound like AI. Trust first, sales second.
-Think like an experienced consultant — not a freelancer trying to win every job."""
+Think like an experienced consultant â not a freelancer trying to win every job."""
 
     user_prompt = f"""Analyze this Upwork job and write a winning proposal.
 
@@ -269,14 +269,14 @@ Internally perform (do NOT output):
 2. Client psychology: type, fears, buying motivation
 3. Hidden problems client hasn't considered
 4. Proposal strategy selection
-5. 3 hooks (curiosity/business/technical) — pick strongest
+5. 3 hooks (curiosity/business/technical) â pick strongest
 
 OUTPUT ONLY:
 
 ## 6. Winning Proposal
 [Ready to paste. Reference 1-2 portfolio links naturally.
 Length: small fix=80-150w, small=150-250w, medium=250-450w, large=400-700w.
-Flow: Hook → Understanding → Solution → Why Me → Suggestion → Soft CTA
+Flow: Hook â Understanding â Solution â Why Me â Suggestion â Soft CTA
 Never start: Hi/Hello/Dear/I am. Vary sentence lengths.]
 
 ## 7. Smart Questions
@@ -298,10 +298,10 @@ Never start: Hi/Hello/Dear/I am. Vary sentence lengths.]
     return proposal
 
 
-# ── Main ────────────────────────────────────────────────────────────────────────
+# ââ Main ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 def main():
     print(f"\n{'='*55}")
-    print(f"  Upwork Quick Apply (GitHub Actions) — {now_str()}")
+    print(f"  Upwork Quick Apply (GitHub Actions) â {now_str()}")
     print(f"  RSS Keywords: {len(RSS_KEYWORDS)} skills")
     print(f"{'='*55}\n")
 
@@ -309,7 +309,7 @@ def main():
         ist     = timezone(timedelta(hours=5, minutes=30))
         now_ist = datetime.now(ist)
         day     = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][now_ist.weekday()]
-        print(f"[{now_str()}] Off-hours ({now_ist.strftime('%H:%M')} IST, {day}) — skip.")
+        print(f"[{now_str()}] Off-hours ({now_ist.strftime('%H:%M')} IST, {day}) â skip.")
         return
 
     seen     = load_seen_jobs()
@@ -321,9 +321,9 @@ def main():
         print(f"[{now_str()}] Koi naya relevant job nahi mila.")
         return
 
-    # AI Scoring — Haiku (top 10)
+    # AI Scoring â Haiku (top 10)
     MAX_SCORE = 10
-    print(f"\n🤖 AI Scoring (top {MAX_SCORE})...")
+    print(f"\nð¤ AI Scoring (top {MAX_SCORE})...")
     qualified, skill_jobs, skipped = [], [], []
 
     for job in new_jobs[:MAX_SCORE]:
@@ -342,7 +342,7 @@ def main():
         if len(qualified) >= MAX_PROPOSALS:
             break
 
-    print(f"\n✅ APPLY: {len(qualified)} | 📚 SKILL: {len(skill_jobs)} | 🚫 SKIP: {len(skipped)}")
+    print(f"\nâ APPLY: {len(qualified)} | ð SKILL: {len(skill_jobs)} | ð« SKIP: {len(skipped)}")
 
     # Skill gaps log
     if skill_jobs:
@@ -359,7 +359,7 @@ def main():
             })
         path.write_text(json.dumps(log[-50:], indent=2))
 
-    # Seen jobs save (before proposal — taaki crash pe bhi save ho)
+    # Seen jobs save (before proposal â taaki crash pe bhi save ho)
     for j in new_jobs[:MAX_SCORE]:
         seen.add(j["id"])
     save_seen_jobs(seen)
@@ -368,19 +368,19 @@ def main():
         print(f"[{now_str()}] Koi job 65% threshold cross nahi kar paya.")
         return
 
-    # Proposals — Sonnet
+    # Proposals â Sonnet
     top_jobs  = qualified[:MAX_PROPOSALS]
     proposals = []
-    print(f"\n✍️  Proposals generate kar raha hoon ({len(top_jobs)})...")
+    print(f"\nâï¸  Proposals generate kar raha hoon ({len(top_jobs)})...")
     for job in top_jobs:
-        print(f"  → {job['title'][:60]}...")
+        print(f"  â {job['title'][:60]}...")
         job["cover_letter"] = generate_cover_letter(job)
         proposals.append(job)
         time.sleep(1)
 
     # Email
     notify_new_jobs(proposals)
-    print(f"\n✅ {len(proposals)} proposals ready! Email sent.")
+    print(f"\nâ {len(proposals)} proposals ready! Email sent.")
 
 
 if __name__ == "__main__":
