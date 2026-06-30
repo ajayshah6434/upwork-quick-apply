@@ -3,7 +3,7 @@
 Upwork Quick Apply â GitHub Actions Version (Apify Edition)
 ------------------------------------------------------------
 Computer OFF bhi kaam karta hai â GitHub ke servers pe run hota hai.
-Apify bebity/upwork-jobs-scraper se jobs fetch karta hai (Cloudflare bypass built-in).
+Apify neatrat/upwork-job-scraper se jobs fetch karta hai (Cloudflare bypass built-in).
 Qualified jobs pe Elite Prompt v2.0 + Sonnet se proposal generate karta hai.
 Email notification dono ko bhejta hai.
 
@@ -34,7 +34,7 @@ ACTIVE_HOURS_END    = 24   # Midnight IST
 SKIP_SUNDAY         = True
 
 # ââ Apify Actor ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-APIFY_ACTOR = "bebity/upwork-jobs-scraper"
+APIFY_ACTOR = "neatrat/upwork-job-scraper"
 
 # ââ Keywords (Apify pe ek-ek keyword query karo) âââââââââââââââââââââââââââââââââ
 APIFY_KEYWORDS = [
@@ -177,7 +177,7 @@ def format_posted(posted_val) -> str:
 # ââ Apify Scraping ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 def scrape_jobs_apify() -> list:
     """
-    Apify bebity/upwork-jobs-scraper actor se jobs fetch karo.
+    Apify neatrat/upwork-job-scraper actor se jobs fetch karo.
     Cloudflare bypass built-in â GitHub Actions pe perfectly kaam karta hai.
     """
     try:
@@ -200,7 +200,7 @@ def scrape_jobs_apify() -> list:
     for keyword in APIFY_KEYWORDS:
         try:
             run = client.actor(APIFY_ACTOR).call(
-                run_input={"query": keyword, "maxResults": 15, "sort": "recency"},
+                run_input={"query": keyword, "maxJobAge": {"value": 24, "unit": "hours"}},
             )
             dataset_id = run.get("defaultDatasetId", "")
             if not dataset_id:
@@ -218,7 +218,7 @@ def scrape_jobs_apify() -> list:
                     continue
                 seen_urls.add(job_url)
 
-                match   = re.search(r"|(\w+)", job_url)
+                match   = re.search(r"~(\w+)", job_url)
                 job_id  = match.group(1) if match else ""
 
                 raw_skills = item.get("skills") or item.get("requiredSkills") or []
@@ -460,4 +460,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+   
