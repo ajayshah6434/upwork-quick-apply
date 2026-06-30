@@ -33,7 +33,7 @@ ACTIVE_HOURS_START  = 9    # 9 AM IST
 ACTIVE_HOURS_END    = 24   # Midnight IST
 SKIP_SUNDAY         = True
 
-# ââ Apify Actor âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ââ Apify Actor ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 APIFY_ACTOR = "bebity/upwork-jobs-scraper"
 
 # ââ Keywords (Apify pe ek-ek keyword query karo) âââââââââââââââââââââââââââââââââ
@@ -201,7 +201,6 @@ def scrape_jobs_apify() -> list:
         try:
             run = client.actor(APIFY_ACTOR).call(
                 run_input={"query": keyword, "maxResults": 15, "sort": "recency"},
-                timeout_secs=90,
             )
             dataset_id = run.get("defaultDatasetId", "")
             if not dataset_id:
@@ -219,7 +218,7 @@ def scrape_jobs_apify() -> list:
                     continue
                 seen_urls.add(job_url)
 
-                match   = re.search(r"~(\w+)", job_url)
+                match   = re.search(r"|(\w+)", job_url)
                 job_id  = match.group(1) if match else ""
 
                 raw_skills = item.get("skills") or item.get("requiredSkills") or []
