@@ -2,14 +2,19 @@ name: Upwork Job Scraper
 
 on:
   schedule:
+    # Har 15 min — 9AM se midnight IST = 3:30AM se 6:30PM UTC
+    # Mon-Sat (IST) = GitHub cron mein Sun-Fri UTC pe map hota hai
+    # IST hours check Python script mein hai — yahan broad schedule rakha hai
     - cron: '*/15 * * * *'
+
+  # Manual test ke liye — GitHub pe "Run workflow" button
   workflow_dispatch:
 
 jobs:
   scrape-and-apply:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write   # seen_jobs.json commit karne ke liye
 
     steps:
       - name: Checkout repo
@@ -33,7 +38,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: python quick_apply.py
 
-      - name: Save seen jobs
+      - name: Save seen jobs (commit back to repo)
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions Bot"
