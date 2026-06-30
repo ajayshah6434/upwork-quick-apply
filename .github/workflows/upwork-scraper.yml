@@ -3,8 +3,6 @@ name: Upwork Job Scraper
 on:
   schedule:
     # Har 15 min — 9AM se midnight IST = 3:30AM se 6:30PM UTC
-    # Mon-Sat (IST) = GitHub cron mein Sun-Fri UTC pe map hota hai
-    # IST hours check Python script mein hai — yahan broad schedule rakha hai
     - cron: '*/15 * * * *'
 
   # Manual test ke liye — GitHub pe "Run workflow" button
@@ -31,6 +29,7 @@ jobs:
 
       - name: Run Upwork scraper
         env:
+          APIFY_TOKEN:        ${{ secrets.APIFY_TOKEN }}
           ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
           NOTIFY_EMAIL:       ${{ secrets.NOTIFY_EMAIL }}
           NOTIFY_EMAIL_CC:    ${{ secrets.NOTIFY_EMAIL_CC }}
