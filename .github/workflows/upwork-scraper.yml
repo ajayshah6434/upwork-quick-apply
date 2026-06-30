@@ -1,32 +1,23 @@
 name: Upwork Job Scraper
-
 on:
   schedule:
-    # Har 15 min — 9AM se midnight IST = 3:30AM se 6:30PM UTC
     - cron: '*/15 * * * *'
-
-  # Manual test ke liye — GitHub pe "Run workflow" button
   workflow_dispatch:
-
 jobs:
   scrape-and-apply:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # seen_jobs.json commit karne ke liye
-
+      contents: write
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v7
       - name: Python setup
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           cache: 'pip'
-
       - name: Install dependencies
         run: pip install -r requirements.txt
-
       - name: Run Upwork scraper
         env:
           APIFY_TOKEN:        ${{ secrets.APIFY_TOKEN }}
@@ -36,7 +27,6 @@ jobs:
           GMAIL_USER:         ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: python quick_apply.py
-
       - name: Save seen jobs (commit back to repo)
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
