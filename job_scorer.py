@@ -6,8 +6,8 @@ Har job ko analyze karta hai aur predict karta hai ki win probability kitni hai.
 Sirf 80%+ probability wale jobs ke liye proposal generate hota hai.
 
 Scoring 2 stages mein hota hai:
-  Stage 1 — Rule-based pre-filter (fast, no API cost)
-  Stage 2 — Claude AI deep analysis (only if Stage 1 passes 50+)
+  Stage 1 â Rule-based pre-filter (fast, no API cost)
+  Stage 2 â Claude AI deep analysis (only if Stage 1 passes 50+)
 
 Final score 0-100. 80+ = Apply. Baaki = Skip.
 """
@@ -15,7 +15,7 @@ Final score 0-100. 80+ = Apply. Baaki = Skip.
 import json
 from datetime import datetime, timezone
 
-# ── Profile Context ───────────────────────────────────────────────────────────
+# ââ Profile Context âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 PROFILE = {
     "name":       "Bharat A.",
     "title":      "GeoDirectory Expert | Brilliant Directories | WordPress | HivePress",
@@ -41,7 +41,7 @@ PROFILE = {
         "wordpress plugin", "wordpress theme", "wordpress customization"
     ],
 
-    # Red flag skills (outside expertise — likely to lose)
+    # Red flag skills (outside expertise â likely to lose)
     "outside_skills": [
         "react", "angular", "vue", "django", "laravel", "node.js",
         "shopify", "wix", "squarespace", "flutter", "android", "ios",
@@ -53,15 +53,18 @@ WIN_THRESHOLD  = 65   # Apply karne ke liye minimum score
 SKILL_THRESHOLD = 1   # Skill match ZERO ho to kabhi apply mat karo (hard rule)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  STAGE 1 — Rule-Based Scoring (no API cost)
-# ─────────────────────────────────────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+#  STAGE 1 â Rule-Based Scoring (no API cost)
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 def score_skill_match(job: dict) -> tuple[int, str]:
     """
     Skill match score: 0-35 points
 
-    Tier 1 (GeoDirectory/HivePress/Brilliant Dir): 35 pts — near-monopoly on Upwork
+    Tier 1 (GeoDirectory/HivePress/Brilliant Dir): 35 pts â likely to lose)
+    "tier2_skills": [
+        "wordpress directory", "directory website", "listing website",
+
     Tier 2 (WordPress directory/listing):          22 pts
     Tier 3 (WordPress general):                    12 pts
     Outside expertise:                             -20 pts (hard negative)
@@ -80,7 +83,7 @@ def score_skill_match(job: dict) -> tuple[int, str]:
     # Tier 1
     for s in PROFILE["tier1_skills"]:
         if s in all_text:
-            return 35, f"Tier 1 match: '{s}' — near-monopoly expertise"
+            return 35, f"Tier 1 match: '{s}' â near-monopoly expertise"
 
     # Tier 2
     for s in PROFILE["tier2_skills"]:
@@ -99,8 +102,8 @@ def score_client_quality(job: dict) -> tuple[int, str]:
     """
     Client quality score: 0-25 points
 
-    Payment verified:          +8  (critical — unverified = no payment risk)
-    Total spent tiers:         +10 max
+    Payment verified:          +8  (critical â unverified = no payment risk)
+    Total spent tiers:        +10 max
     Hire rate:                 +4  max
     Previous hires:            +3  max
     """
@@ -111,44 +114,44 @@ def score_client_quality(job: dict) -> tuple[int, str]:
     # Payment verified (most important)
     if client.get("payment_verified") or client.get("paymentMethodVerified"):
         score += 8
-        notes.append("✅ Payment verified")
+        notes.append("â Payment verified")
     else:
-        notes.append("⚠️ Payment NOT verified")
+        notes.append("â ï¸ Payment NOT verified")
 
     # Total spent
     spent = client.get("total_spent") or client.get("stats", {}).get("totalSpent", 0)
     if spent >= 10000:
         score += 10
-        notes.append(f"💰 Spent ${spent:,.0f} (high-value client)")
+        notes.append(f"ð° Spent ${spent:,.0f} (high-value client)")
     elif spent >= 5000:
         score += 8
-        notes.append(f"💰 Spent ${spent:,.0f}")
+        notes.append(f"ð° Spent ${spent:,.0f}")
     elif spent >= 1000:
         score += 5
-        notes.append(f"💰 Spent ${spent:,.0f}")
+        notes.append(f"ð° Spent ${spent:,.0f}")
     elif spent >= 200:
         score += 3
-        notes.append(f"💰 Spent ${spent:,.0f}")
+        notes.append(f"ð° Spent ${spent:,.0f}")
     elif spent == 0:
-        notes.append("🆕 New client (no spend history)")
+        notes.append("ð New client (no spend history)")
 
     # Hire rate
     hire_rate = client.get("hire_rate") or client.get("stats", {}).get("hireRate", 0)
     if hire_rate >= 0.7:
         score += 4
-        notes.append(f"📊 {hire_rate*100:.0f}% hire rate (hires most applicants)")
+        notes.append(f"ð {hire_rate*100:.0f}% hire rate (hires most applicants)")
     elif hire_rate >= 0.4:
         score += 2
-        notes.append(f"📊 {hire_rate*100:.0f}% hire rate")
+        notes.append(f"ð {hire_rate*100:.0f}% hire rate")
 
     # Total hires
     hires = client.get("total_hires") or client.get("stats", {}).get("totalHires", 0)
     if hires >= 10:
         score += 3
-        notes.append(f"👥 {hires} total hires (experienced buyer)")
+        notes.append(f"ð¥ {hires} total hires (experienced buyer)")
     elif hires >= 3:
         score += 2
-        notes.append(f"👥 {hires} total hires")
+        notes.append(f"ð¥ {hires} total hires")
 
     return score, " | ".join(notes)
 
@@ -158,7 +161,7 @@ def score_competition(job: dict) -> tuple[int, str]:
     Competition score: 0-20 points
 
     Proposals count aur connects cost se competition estimate karo.
-    Kam proposals = zyada chance of being seen first.
+    Kam proposals = zzada chance of being seen first.
     """
     proposals = (
         job.get("proposalsCount") or
@@ -173,24 +176,24 @@ def score_competition(job: dict) -> tuple[int, str]:
 
     if proposals == 0:
         score += 20
-        notes.append("🏆 0 proposals yet — first mover advantage!")
+        notes.append("ð 0 proposals yet â first mover advantage!")
     elif proposals <= 5:
         score += 17
-        notes.append(f"🟢 Only {proposals} proposals — very low competition")
+        notes.append(f"ð Only {proposals} proposals( â very low competition")
     elif proposals <= 15:
         score += 12
-        notes.append(f"🟡 {proposals} proposals — moderate competition")
+        notes.append(f"ð¡ {proposals} proposals â" moderate competition")
     elif proposals <= 30:
         score += 6
-        notes.append(f"🟠 {proposals} proposals — high competition")
+        notes.append(f"ð  {proposals} proposals â high competition")
     else:
         score += 2
-        notes.append(f"🔴 {proposals}+ proposals — crowded")
+        notes.append(f"ð´ {proposals}+ proposals â crowded")
 
     # High connects cost = fewer applicants (barrier to entry)
     if connects >= 6:
         score += 3
-        notes.append(f"🔒 {connects} connects needed (filters casual applicants)")
+        notes.append(f"ð {connects} connects needed (filters casual applicants)")
 
     return min(score, 20), " | ".join(notes)
 
@@ -210,16 +213,16 @@ def score_job_quality(job: dict) -> tuple[int, str]:
         age_mins = int(posted.replace(" min ago", "").replace(" mins ago", ""))
         if age_mins <= 5:
             score += 10
-            notes.append(f"⚡ Posted just {age_mins} min ago!")
+            notes.append(f"â¡ Posted just {age_mins} min ago!")
         elif age_mins <= 15:
             score += 8
-            notes.append(f"⏱️ Posted {age_mins} min ago")
+            notes.append(f"â±ï¸ Posted {age_mins} min ago")
         elif age_mins <= 30:
             score += 5
-            notes.append(f"🕐 Posted {age_mins} min ago")
+            notes.append(f"ð Posted {age_mins} min ago")
         else:
             score += 2
-            notes.append(f"🕐 Posted {age_mins} min ago")
+            notes.append(f"ð Posted {age_mins} min ago")
     except Exception:
         score += 5
         notes.append("Posted recently")
@@ -232,10 +235,10 @@ def score_job_quality(job: dict) -> tuple[int, str]:
                 nums = [int(x.replace("$","")) for x in budget_str.split("-") if x.strip().replace("$","").isdigit()]
                 if nums and max(nums) >= 20:
                     score += 5
-                    notes.append(f"💵 Hourly rate fits ({budget_str})")
+                    notes.append(f"ðµ Hourly rate fits ({budget_str})")
                 elif nums and max(nums) >= 10:
                     score += 2
-                    notes.append(f"💵 Budget slightly low ({budget_str})")
+                    notes.append(f"ðµ Budget slightly low ({budget_str})")
             except Exception:
                 score += 3
         elif "fixed" in budget_str:
@@ -243,10 +246,10 @@ def score_job_quality(job: dict) -> tuple[int, str]:
                 amount = int(budget_str.replace("$","").replace("fixed","").strip())
                 if amount >= 200:
                     score += 5
-                    notes.append(f"💵 Good fixed budget ({budget_str})")
+                    notes.append(f"ðµ Good fixed budget ({budget_str})")
                 elif amount >= 50:
                     score += 3
-                    notes.append(f"💵 Moderate budget ({budget_str})")
+                    notes.append(f"ðµ Moderate budget ({budget_str})")
             except Exception:
                 score += 3
     else:
@@ -256,12 +259,12 @@ def score_job_quality(job: dict) -> tuple[int, str]:
     exp = job.get("experience_level", "").lower()
     if "expert" in exp:
         score += 5
-        notes.append("🎯 Expert level required (less competition, higher rate)")
+        notes.append("ð¯ Expert level required (less competition, higher rate)")
     elif "intermediate" in exp:
         score += 3
-        notes.append("📈 Intermediate level")
+        notes.append("ð Intermediate level")
     elif "entry" in exp:
-        notes.append("📉 Entry level (more competition, lower rate)")
+        notes.append("ð Entry level (more competition, lower rate)")
 
     return min(score, 20), " | ".join(notes)
 
@@ -286,9 +289,9 @@ def rule_based_score(job: dict) -> dict:
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  STAGE 2 — Claude AI Deep Analysis
-# ─────────────────────────────────────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+#  STAGE 2 â Claude AI Deep Analysis
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 def ai_deep_analysis(job: dict, rule_result: dict) -> dict:
     """
@@ -306,18 +309,18 @@ def ai_deep_analysis(job: dict, rule_result: dict) -> dict:
     prompt = f"""You are an expert Upwork bidding strategist analyzing a job for this freelancer:
 
 FREELANCER PROFILE:
-- Name: Bharat A. (Top Rated, 96% JSS, 5.0★, 124 jobs, $25/hr)
+- Name: Bharat A. (Top Rated, 96% JSS, 5.0â, 124 jobs, $25/hr)
 - Core expertise: GeoDirectory plugin, HivePress, Brilliant Directories, WordPress directory/listing websites
 - Strong at: WordPress customization, plugin configuration, directory/membership sites
 - Weak at: React, Angular, Python scripts, mobile apps, Shopify
 
 RULE-BASED SCORE SO FAR: {rule_score}/100
-Skill match: {breakdown['skill_match']['score']}/35 — {breakdown['skill_match']['reason']}
-Client quality: {breakdown['client_quality']['score']}/25 — {breakdown['client_quality']['reason']}
-Competition: {breakdown['competition']['score']}/20 — {breakdown['competition']['reason']}
-Job quality: {breakdown['job_quality']['score']}/20 — {breakdown['job_quality']['reason']}
+Skill match: {breakdown['sckill_match']['score']}/35 â {breakdown['skill_match']['reason']}
+Client quality: {breakdown['client_quality']['score']}/25 â {breakdown['client_quality']['reason']}
+Competition: {breakdown['competition']['score']}/20 â {breakdown['competition']['reason']}
+Job quality: {breakdown['job_quality']['score']}/20 â {breakdown['job_quality']['reason']}
 
-JOB TO ANALYZE:
+JOB TO ANANYZE:
 Title: {job.get('title','')}
 Budget: {job.get('budget','')}
 Skills required: {job.get('skills',[])}
@@ -336,7 +339,7 @@ ANALYZE THESE FACTORS (that rules can't detect):
 Respond in this EXACT JSON format:
 {{
   "ai_adjustment": <integer from -20 to +20 to add to rule score>,
-  "confidence": "<HIGH/MEDIUM/LOW>",
+  "confidence": "<HBÉGH/MEDIUM/LOW>",
   "green_flags": ["flag1", "flag2"],
   "red_flags": ["flag1", "flag2"],
   "win_prediction": "<brief 1-sentence prediction>",
@@ -370,9 +373,9 @@ Be realistic. Don't be overly optimistic."""
     }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  MAIN SCORING FUNCTION
-# ─────────────────────────────────────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+#  MAIN SCORING FUÕNCTION
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 def score_job(job: dict, use_ai: bool = True) -> dict:
     """
@@ -386,15 +389,17 @@ def score_job(job: dict, use_ai: bool = True) -> dict:
 
     skill_score = rule_result["breakdown"]["skill_match"]["score"]
 
-    # ── HARD RULE: Skill match ZERO ho to kabhi apply mat karo ──────────────
-    # Chahe baaki sab perfect ho — skill nahi to apply nahi.
+    # ââ HARD RULE: Skill match ZERO ho to kabhi apply mat karo ââââââââââââââ
+    # Chahe baaki sab perfect ho â skill nahi to apply nahi.
     if skill_score <= 0:
         return {
             "final_score":  0,
             "probability":  0,
             "should_apply": False,
-            "action":       "HARD_SKIP",   # skill hi nahi → ignore
-            "reason":       "❌ No skill match — " + rule_result["breakdown"]["skill_match"]["reason"],
+            "action":       "HARD_SKIP",   # skill hi nahi â ignore
+            "reason":       "â No skill match â " + rule_result["breakdown"]["skill_match"]["reason"],
+            "rule_score":    0,
+            "ai_adjustment": 0,
             "rule_result":  rule_result,
             "ai_result":    None,
         }
@@ -412,12 +417,12 @@ def score_job(job: dict, use_ai: bool = True) -> dict:
 
     final_score = max(0, min(100, rule_score + ai_adjustment))
 
-    # ── DECISION LOGIC ────────────────────────────────────────────────────────
+    # ââ DECISION LOGIC ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
     # Skill match hai, to teen possible actions:
-    #   APPLY  — score >= 65  → proposal bhejo
-    #   SKILL  — score 30-64  → is job mein skill gap hai, note karke seekho
-    #   SKIP   — score < 30   → skill match tha but baaki sab weak
-    # ─────────────────────────────────────────────────────────────────────────
+    #   APPLY  â score >= 65  â proposal bhejo
+    #   SKILL  â score 30-64  â is job mein skill gap hai, note karke seekho
+    #   SKIP   â score < 30   â skill match tha but baaki sab weak
+    # âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
     # Override: AI says NO strongly
     if ai_result and ai_result.get("apply_recommendation") == "NO" and len(ai_result.get("red_flags", [])) >= 3:
@@ -433,11 +438,11 @@ def score_job(job: dict, use_ai: bool = True) -> dict:
         gaps         = []
         if ai_result and ai_result.get("red_flags"):
             gaps = ai_result["red_flags"][:2]
-        reason = f"Skill match hai but score {final_score}% — Seekhne layak: {' | '.join(gaps) if gaps else 'client quality ya competition weak'}"
+        reason = f"Skill match hai but score {final_score}% â Seekhne layak: {' | '.join(gaps) if gaps else 'client quality ya competition weak'}"
     else:
         action       = "SKIP"
         should_apply = False
-        reason       = f"Score {final_score}% — skill match tha but baaki criteria weak"
+        reason       = f"Score {final_score}% â skill match tha but baaki criteria weak"
 
     return {
         "final_score":   final_score,
@@ -457,14 +462,14 @@ def print_score_report(job: dict, result: dict):
     title  = job.get("title", "")[:55]
     score  = result["final_score"]
     action = result.get("action", "SKIP")
-    icons  = {"APPLY": "✅ APPLY", "SKILL": "📚 SKILL", "SKIP": "⏭  SKIP", "HARD_SKIP": "🚫 NO MATCH"}
-    apply  = icons.get(action, "❌ SKIP")
-    bar    = "█" * (score // 5) + "░" * (20 - score // 5)
+    icons  = {"APPLY": "â APPLY", "SKILL": "ð SKILL", "SKIP": "â­  SKIP", "HARD_SKIP": "ð« NO MATCH"}
+    apply  = icons.get(action, "â SKIP")
+    bar    = "â" * (score // 5) + "â" * (20 - score // 5)
 
-    print(f"\n  {'─'*60}")
+    print(f"\n  {'â'*60}")
     print(f"  {apply}  [{bar}] {score}%")
-    print(f"  📋 {title}")
-    print(f"  Rule: {result['rule_score']}/100  |  AI adj: {result.get('ai_adjustment',0):+d}")
+    print(f"  ð {title}")
+    print(f"  Rule: {result.get('rule_score',0)}/100  |  AI adj: {result.get('ai_adjustment',0):+d}")
 
     bd = result["rule_result"]["breakdown"]
     print(f"     Skill: {bd['skill_match']['score']}/35  "
@@ -475,17 +480,17 @@ def print_score_report(job: dict, result: dict):
     if result.get("ai_result"):
         ai = result["ai_result"]
         if ai.get("green_flags"):
-            print(f"  ✅ {' | '.join(ai['green_flags'][:2])}")
+            print(f"  â {' | '.join(ai['green_flags'][:2])}")
         if ai.get("red_flags"):
-            print(f"  ⚠️  {' | '.join(ai['red_flags'][:2])}")
-        print(f"  💬 {ai.get('win_prediction','')}")
+            print(f"  â ï¸  {' | '.join(ai['red_flags'][:2])}")
+        print(f"  ð¬ {ai.get('win_prediction','')}")
 
     print(f"  Reason: {result['reason']}")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  TEST MODE — Ek job manually test karne ke liye
-# ─────────────────────────────────────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+#  TEST MODE â Ek job manually test karne ke liye
+# âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 if __name__ == "__main__":
     # Example test job
@@ -507,12 +512,12 @@ if __name__ == "__main__":
     }
 
     print("\n" + "="*60)
-    print("  AI WIN-PROBABILITY SCORER — Test Run")
+    print("  AI WIN-PROBABILITY SCORER â Test Run")
     print("="*60)
 
     result = score_job(test_job, use_ai=True)
     print_score_report(test_job, result)
 
-    print(f"\n  FINAL DECISION: {'✅ APPLY' if result['should_apply'] else '❌ SKIP'}")
+    print(f"\n  FINAL DECISION: {'â APPLY' if result['should_apply'] else 'â SKIP'}")
     print(f"  Win Probability: {result['final_score']}%")
     print("="*60 + "\n")
