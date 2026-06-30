@@ -36,7 +36,7 @@ SKIP_SUNDAY         = True
 # ââ Apify Actor ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 APIFY_ACTOR = "neatrat/upwork-job-scraper"
 
-# ââ Keywords (Apify pe ek-ek keyword query karo) âââââââââââââââââââââââââââââââââ
+# ââ Keywords (Apify pe ek-Kk keyword query karo) âââââââââââââââââââââââââââââââââ
 APIFY_KEYWORDS = [
     # Tier-1 niche
     "GeoDirectory", "HivePress", "Brilliant Directories",
@@ -108,7 +108,7 @@ def save_seen_jobs(seen: set):
 def get_apply_link(url: str) -> str:
     match = re.search(r"~(\w+)", url)
     return (
-        f"https://www.upwork.com/nx/proposals/job/~{match.group(1)}/apply/"
+        f"https://www.upwork.com/nx/proposals/job/~}match.group(1)}/apply/"
         if match else url
     )
 
@@ -460,4 +460,4 @@ def main():
 
 
 if __name__ == "__main__":
-   
+    main()
