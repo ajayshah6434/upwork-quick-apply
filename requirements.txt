@@ -1,4 +1,4 @@
 anthropic
-feedparser
+apify-client
 python-dotenv
 requests
