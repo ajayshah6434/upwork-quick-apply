@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-Upwork Quick Apply â GitHub Actions Version (Apify Edition)
+Upwork Quick Apply — GitHub Actions Version (Apify Edition)
 ------------------------------------------------------------
-Computer OFF bhi kaam karta hai â GitHub ke servers pe run hota hai.
+Computer OFF bhi kaam karta hai — GitHub ke servers pe run hota hai.
 Apify neatrat/upwork-job-scraper se jobs fetch karta hai (Cloudflare bypass built-in).
 Qualified jobs pe Elite Prompt v2.0 + Sonnet se proposal generate karta hai.
 Email notification dono ko bhejta hai.
 
 GitHub Secrets mein yeh set karo:
-  APIFY_TOKEN          â apify.com/account/integrations se
+  APIFY_TOKEN          → apify.com/account/integrations se
   ANTHROPIC_API_KEY
   NOTIFY_EMAIL
   NOTIFY_EMAIL_CC
@@ -25,7 +25,7 @@ from notifier import notify_new_jobs
 
 load_dotenv()
 
-# ââ Config âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Config ────────────────────────────────────────────────────────────────────
 SEEN_JOBS_FILE      = "seen_jobs.json"
 MAX_PROPOSALS       = 5
 MIN_BUDGET          = 50
@@ -33,10 +33,20 @@ ACTIVE_HOURS_START  = 9    # 9 AM IST
 ACTIVE_HOURS_END    = 24   # Midnight IST
 SKIP_SUNDAY         = True
 
-# ââ Apify Actor ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Apify Actor ───────────────────────────────────────────────────────────────
 APIFY_ACTOR = "neatrat/upwork-job-scraper"
 
-# ââ Keywords (Apify pe ek-ek keyword query karo) âââââââââââââââââââââââââââââââââ
+# ── 2 broad queries instead of 15 separate calls → 7.5x fewer Apify runs ─────
+# Free tier = 10 runs/month. With 2 queries: 5 workflow executions per month.
+# Paid Starter ($29/mo): easily covers hourly runs at this rate.
+APIFY_SEARCH_QUERIES = [
+    # Niche-specific: GeoDirectory, HivePress, directories, job boards
+    "GeoDirectory HivePress Brilliant Directories ListingPro WP Job Manager classified real estate",
+    # General WP dev: WooCommerce, Elementor, membership, speed, general dev
+    "WordPress WooCommerce Elementor MemberPress speed optimization developer directory",
+]
+
+# Original keywords — kept for client-side tagging & scoring context
 APIFY_KEYWORDS = [
     # Tier-1 niche
     "GeoDirectory", "HivePress", "Brilliant Directories",
@@ -53,7 +63,7 @@ APIFY_KEYWORDS = [
     "WooCommerce developer", "Elementor developer", "WordPress developer",
 ]
 
-# ââ Portfolio links âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Portfolio links ───────────────────────────────────────────────────────────
 PORTFOLIO = {
     "geodirectory": [
         "https://opensupplyco.com/", "https://easywedding.me/",
@@ -75,7 +85,7 @@ PORTFOLIO = {
 }
 
 
-# ââ Helpers âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Helpers ───────────────────────────────────────────────────────────────────
 def now_str():
     return datetime.now().strftime("%H:%M:%S")
 
@@ -104,7 +114,7 @@ def save_seen_jobs(seen: set):
         json.dump(list(seen)[-1000:], f, indent=2)
 
 
-# ââ Helpers ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Helpers ───────────────────────────────────────────────────────────────────
 def get_apply_link(url: str) -> str:
     match = re.search(r"~(\w+)", url)
     return (
@@ -114,7 +124,7 @@ def get_apply_link(url: str) -> str:
 
 
 def parse_spent(spent_str) -> float:
-    """'$10K+' â 10000.0"""
+    """'$10K+' → 10000.0"""
     if not spent_str:
         return 0.0
     s = str(spent_str).replace(",", "").upper()
@@ -150,7 +160,7 @@ def parse_budget_str(item: dict) -> str:
 
 
 def format_posted(posted_val) -> str:
-    """ISO timestamp â '8 min ago' format."""
+    """ISO timestamp → '8 min ago' format."""
     if not posted_val:
         return "recently"
     s = str(posted_val)
@@ -174,11 +184,39 @@ def format_posted(posted_val) -> str:
     return s[:20]
 
 
-# ââ Apify Scraping ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+def find_matched_keyword(title: str, description: str) -> str:
+    """Client-side keyword matching — tags which niche a job belongs to."""
+    text = (title + " " + description).lower()
+    # Check most specific first
+    priority = [
+        ("GeoDirectory",                    "geodirectory"),
+        ("HivePress",                       "hivepress"),
+        ("Brilliant Directories",           "brilliant directories"),
+        ("ListingPro WordPress",            "listingpro"),
+        ("WP Job Manager",                  "wp job manager"),
+        ("RealHomes theme",                 "realhomes"),
+        ("WordPress membership MemberPress","memberpress"),
+        ("WooCommerce developer",           "woocommerce"),
+        ("Elementor developer",             "elementor"),
+        ("real estate WordPress",           "real estate"),
+        ("classified ads WordPress",        "classified"),
+        ("job board WordPress",             "job board"),
+        ("WordPress speed optimization",    "speed optimization"),
+        ("WordPress directory website",     "directory"),
+        ("WordPress developer",             "wordpress"),
+    ]
+    for keyword, term in priority:
+        if term in text:
+            return keyword
+    return "WordPress developer"
+
+
+# ── Apify Scraping ────────────────────────────────────────────────────────────
 def scrape_jobs_apify() -> list:
     """
     Apify neatrat/upwork-job-scraper actor se jobs fetch karo.
-    Cloudflare bypass built-in â GitHub Actions pe perfectly kaam karta hai.
+    2 broad queries → 15 niche keywords cover hote hain client-side matching se.
+    Free tier: 10 runs/month. Paid Starter ($29/mo): ~720 runs/month capacity.
     """
     try:
         from apify_client import ApifyClient
@@ -188,23 +226,23 @@ def scrape_jobs_apify() -> list:
 
     token = os.environ.get("APIFY_TOKEN", "")
     if not token:
-        print("  [Apify] APIFY_TOKEN secret missing â skipping")
+        print("  [Apify] APIFY_TOKEN secret missing — skipping")
         return []
 
     client    = ApifyClient(token)
     all_jobs  = []
     seen_urls = set()
 
-    print(f"\n[{now_str()}] Apify scraping ({len(APIFY_KEYWORDS)} keywords)...\n")
+    print(f"\n[{now_str()}] Apify scraping ({len(APIFY_SEARCH_QUERIES)} queries → {len(APIFY_KEYWORDS)} keywords)...\n")
 
-    for keyword in APIFY_KEYWORDS:
+    for query in APIFY_SEARCH_QUERIES:
         try:
             run = client.actor(APIFY_ACTOR).call(
-                run_input={"query": keyword, "maxJobAge": {"value": 24, "unit": "hours"}},
+                run_input={"query": query, "maxJobAge": {"value": 24, "unit": "hours"}},
             )
             dataset_id = run.get("defaultDatasetId", "")
             if not dataset_id:
-                print(f"  [{keyword:40s}] no dataset")
+                print(f"  [{query[:40]:40s}] no dataset")
                 continue
 
             count = 0
@@ -229,10 +267,13 @@ def scrape_jobs_apify() -> list:
                 if isinstance(client_info, str):
                     client_info = {}
 
+                title       = (item.get("title") or item.get("jobTitle") or "").strip()
+                description = (item.get("description") or item.get("jobDescription") or "")[:600]
+
                 all_jobs.append({
                     "id":               job_url,
-                    "title":            (item.get("title") or item.get("jobTitle") or "").strip(),
-                    "description":      (item.get("description") or item.get("jobDescription") or "")[:600],
+                    "title":            title,
+                    "description":      description,
                     "url":              job_url,
                     "apply_link":       f"https://www.upwork.com/nx/proposals/job/~{job_id}/apply/" if job_id else job_url,
                     "budget":           parse_budget_str(item),
@@ -253,17 +294,17 @@ def scrape_jobs_apify() -> list:
                         item.get("clientCountry") or item.get("country") or
                         client_info.get("country") or ""
                     ),
-                    "matched_keyword":  keyword,
+                    "matched_keyword":  find_matched_keyword(title, description),
                 })
                 count += 1
 
-            print(f"  [{keyword:40s}] {count} jobs")
+            print(f"  [{query[:40]:40s}] {count} jobs")
             time.sleep(0.5)
 
         except Exception as e:
-            print(f"  [{keyword:40s}] error: {e}")
+            print(f"  [{query[:40]:40s}] error: {e}")
 
-    print(f"\n  â Total unique jobs: {len(all_jobs)}")
+    print(f"\n  ✓ Total unique jobs: {len(all_jobs)}")
     return all_jobs
 
 
@@ -280,7 +321,7 @@ def filter_new_jobs(jobs: list, seen: set) -> list:
     return new
 
 
-# ââ Portfolio Detection âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Portfolio Detection ───────────────────────────────────────────────────────
 def detect_job_type(job: dict) -> str:
     text = (
         job.get("title", "") + " " +
@@ -302,7 +343,7 @@ def get_portfolio_links(job_type: str, count: int = 3) -> list:
     return random.sample(pool, min(count, len(pool)))
 
 
-# ââ Proposal Generation â Elite Prompt v2.0 + Claude Sonnet ââââââââââââââââââââ
+# ── Proposal Generation — Elite Prompt v2.0 + Claude Sonnet ──────────────────
 def generate_cover_letter(job: dict) -> str:
     import anthropic
     client = anthropic.Anthropic()
@@ -312,9 +353,9 @@ def generate_cover_letter(job: dict) -> str:
     portfolio_str   = "\n".join(f"- {link}" for link in portfolio_links)
 
     labels = {"geodirectory": "GeoDirectory", "hivepress": "HivePress", "bd": "BD/WordPress"}
-    print(f"    Type: {labels[job_type]} â portfolio injected")
+    print(f"    Type: {labels[job_type]} → portfolio injected")
 
-    system_prompt = f"""# Claude System Prompt â Elite Upwork Proposal Strategist v2.0
+    system_prompt = f"""# Claude System Prompt — Elite Upwork Proposal Strategist v2.0
 
 ## ROLE
 You are an elite Upwork Proposal Strategist, Sales Consultant, Client Psychology Expert, and Technical Solution Architect.
@@ -323,18 +364,18 @@ Every proposal must feel personally written by an experienced consultant after s
 Never generate generic proposals. Never sound like AI. Optimize for trust before selling.
 
 # ABOUT ME
-Bharat A. â GeoDirectory specialist, 50+ GeoDirectory sites built, HivePress expert (30+ marketplaces), 124 Upwork jobs, Top Rated, 96% JSS, 5.0 stars.
+Bharat A. — GeoDirectory specialist, 50+ GeoDirectory sites built, HivePress expert (30+ marketplaces), 124 Upwork jobs, Top Rated, 96% JSS, 5.0 stars.
 Strengths: Business-first, excellent communication, clean code, long-term support, honest estimates, fast response.
 Never invent experience. Never fabricate numbers or projects.
 
-# RELEVANT PORTFOLIO (use 1-2 naturally in proposal â not as a list)
+# RELEVANT PORTFOLIO (use 1-2 naturally in proposal — not as a list)
 {portfolio_str}
 
 # GLOBAL RULES
 Always write for one specific client. Never use templates. Never exaggerate.
 Never use emojis, hype, or AI words (excited/passionate/leverage/utilize/best-in-class).
 Never sound like AI. Trust first, sales second.
-Think like an experienced consultant â not a freelancer trying to win every job."""
+Think like an experienced consultant — not a freelancer trying to win every job."""
 
     user_prompt = f"""Analyze this Upwork job and write a winning proposal.
 
@@ -350,14 +391,14 @@ Internally perform (do NOT output):
 2. Client psychology: type, fears, buying motivation
 3. Hidden problems client hasn't considered
 4. Proposal strategy selection
-5. 3 hooks (curiosity/business/technical) â pick strongest
+5. 3 hooks (curiosity/business/technical) — pick strongest
 
 OUTPUT ONLY:
 
 ## 6. Winning Proposal
 [Ready to paste. Reference 1-2 portfolio links naturally.
 Length: small fix=80-150w, small=150-250w, medium=250-450w, large=400-700w.
-Flow: Hook â Understanding â Solution â Why Me â Suggestion â Soft CTA
+Flow: Hook → Understanding → Solution → Why Me → Suggestion → Soft CTA
 Never start: Hi/Hello/Dear/I am. Vary sentence lengths.]
 
 ## 7. Smart Questions
@@ -379,18 +420,18 @@ Never start: Hi/Hello/Dear/I am. Vary sentence lengths.]
     return proposal
 
 
-# ââ Main ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+# ── Main ──────────────────────────────────────────────────────────────────────
 def main():
     print(f"\n{'='*55}")
-    print(f"  Upwork Quick Apply (GitHub Actions + Apify) â {now_str()}")
-    print(f"  Keyword groups: {len(APIFY_KEYWORDS)}")
+    print(f"  Upwork Quick Apply (GitHub Actions + Apify) — {now_str()}")
+    print(f"  Keyword groups: {len(APIFY_KEYWORDS)} | Apify queries: {len(APIFY_SEARCH_QUERIES)}")
     print(f"{'='*55}\n")
 
     if not is_active_hours():
         ist     = timezone(timedelta(hours=5, minutes=30))
         now_ist = datetime.now(ist)
         day     = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][now_ist.weekday()]
-        print(f"[{now_str()}] Off-hours ({now_ist.strftime('%H:%M')} IST, {day}) â skip.")
+        print(f"[{now_str()}] Off-hours ({now_ist.strftime('%H:%M')} IST, {day}) — skip.")
         return
 
     seen     = load_seen_jobs()
@@ -403,7 +444,7 @@ def main():
         return
 
     MAX_SCORE = 10
-    print(f"\n\U0001f916 AI Scoring (top {MAX_SCORE})...")
+    print(f"\n🤖 AI Scoring (top {MAX_SCORE})...")
     qualified, skill_jobs, skipped = [], [], []
 
     for job in new_jobs[:MAX_SCORE]:
@@ -422,7 +463,7 @@ def main():
         if len(qualified) >= MAX_PROPOSALS:
             break
 
-    print(f"\n\u2705 APPLY: {len(qualified)} | \U0001f4da SKILL: {len(skill_jobs)} | \U0001f6ab SKIP: {len(skipped)}")
+    print(f"\n✅ APPLY: {len(qualified)} | 📚 SKILL: {len(skill_jobs)} | 🚫 SKIP: {len(skipped)}")
 
     if skill_jobs:
         path2 = Path("skill_gaps.json")
@@ -448,15 +489,15 @@ def main():
 
     top_jobs  = qualified[:MAX_PROPOSALS]
     proposals = []
-    print(f"\n\u270d\ufe0f  Proposals generate kar raha hoon ({len(top_jobs)})...")
+    print(f"\n✍️  Proposals generate kar raha hoon ({len(top_jobs)})...")
     for job in top_jobs:
-        print(f"  \u2192 {job['title'][:60]}...")
+        print(f"  → {job['title'][:60]}...")
         job["cover_letter"] = generate_cover_letter(job)
         proposals.append(job)
         time.sleep(1)
 
     notify_new_jobs(proposals)
-    print(f"\n\u2705 {len(proposals)} proposals ready! Email sent.")
+    print(f"\n✅ {len(proposals)} proposals ready! Email sent.")
 
 
 if __name__ == "__main__":
