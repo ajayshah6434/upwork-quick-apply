@@ -22,6 +22,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from job_scorer import score_job, print_score_report
 from notifier import notify_new_jobs
+from sheets_updater import save_jobs_to_sheet
 
 load_dotenv()
 
@@ -502,7 +503,11 @@ def main():
         proposals.append(job)
         time.sleep(1)
 
-    notify_new_jobs(proposals)
+    # ── Google Sheets: save all scored jobs, get URL for email ────────────────
+    print(f"\n📊 Google Sheet update kar raha hoon...")
+    sheet_url = save_jobs_to_sheet(proposals, skill_jobs, skipped)
+
+    notify_new_jobs(proposals, sheet_url=sheet_url)
     print(f"\n✅ {len(proposals)} proposals ready! Email sent.")
 
 

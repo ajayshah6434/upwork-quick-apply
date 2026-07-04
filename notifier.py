@@ -88,10 +88,13 @@ def send_whatsapp(message: str) -> bool:
         return False
 
 
-def notify_new_jobs(proposals: list):
+def notify_new_jobs(proposals: list, sheet_url: str = None):
     """
     Naye qualified jobs milne pe dono channels pe notify karo.
     quick_apply.py se call hota hai.
+
+    proposals  — APPLY jobs with cover letters
+    sheet_url  — Google Sheet URL (optional, included in email when provided)
     """
     count = len(proposals)
     if count == 0:
@@ -108,6 +111,8 @@ def notify_new_jobs(proposals: list):
             f"📝 _{p['cover_letter'][:120]}_\n"
         )
     wa_lines.append("⏱ 15 min window — jaldi apply karo!")
+    if sheet_url:
+        wa_lines.append(f"\n📊 All Jobs Sheet: {sheet_url}")
     send_whatsapp("\n".join(wa_lines))
 
     # ── Email (detailed HTML) ─────────────────────────────────────────────────
@@ -137,6 +142,24 @@ def notify_new_jobs(proposals: list):
           </a>
         </div>"""
 
+    # Google Sheet button — only shown when sheet_url is available
+    sheet_section = ""
+    if sheet_url:
+        sheet_section = f"""
+        <div style="margin:20px 0;padding:16px;background:#e8f4ff;border-radius:6px;
+                    border-left:4px solid #1a73e8;text-align:center;">
+          <p style="margin:0 0 6px;font-size:14px;color:#333;font-weight:600;">
+            📊 Sabhi Scored Jobs — Google Sheet</p>
+          <p style="margin:0 0 12px;font-size:12px;color:#666;">
+            APPLY + SKILL + SKIP — poora history ek jagah</p>
+          <a href="{sheet_url}"
+             style="display:inline-block;background:#1a73e8;color:#fff;
+                    padding:10px 24px;border-radius:5px;text-decoration:none;
+                    font-size:14px;font-weight:600;">
+            📊 Open Job Tracker Sheet →
+          </a>
+        </div>"""
+
     html = f"""
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
       <div style="background:#14a800;padding:20px 24px;border-radius:8px 8px 0 0;">
@@ -148,6 +171,7 @@ def notify_new_jobs(proposals: list):
       <div style="background:#fff;padding:20px 24px;border:1px solid #e0e0e0;
                   border-top:none;border-radius:0 0 8px 8px;">
         {cards}
+        {sheet_section}
         <p style="font-size:12px;color:#999;margin-top:20px;text-align:center;">
           Upwork Quick Apply System • Bharat A.</p>
       </div>
@@ -156,6 +180,8 @@ def notify_new_jobs(proposals: list):
     plain = f"{count} naye Upwork jobs mile:\n\n"
     for i, p in enumerate(proposals, 1):
         plain += f"{i}. {p['title']}\n{p['apply_link']}\n{p['cover_letter']}\n\n"
+    if sheet_url:
+        plain += f"\nSabhi Jobs Google Sheet: {sheet_url}\n"
 
     send_email(subject, html, plain)
 
@@ -179,7 +205,7 @@ def send_test_notification():
     }]
 
     print("\n📤 Sending test notification...\n")
-    notify_new_jobs(sample_proposals)
+    notify_new_jobs(sample_proposals, sheet_url="https://docs.google.com/spreadsheets/d/example")
     print("\nDone!")
 
 
