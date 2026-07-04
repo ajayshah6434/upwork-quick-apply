@@ -37,14 +37,17 @@ SKIP_SUNDAY         = True
 # ── Apify Actor ───────────────────────────────────────────────────────────────
 APIFY_ACTOR = "neatrat/upwork-job-scraper"
 
-# ── 2 broad queries instead of 15 separate calls → 7.5x fewer Apify runs ─────
-# Free tier = 10 runs/month. With 2 queries: 5 workflow executions per month.
-# Paid Starter ($29/mo): easily covers hourly runs at this rate.
+# ── Simple individual keyword queries — each maps to one clean Upwork search ──
+# Apify Starter plan ($29/mo) → unlimited runs within compute budget.
+# Short keywords = more results (same as searching manually on Upwork).
+# Long combined strings = fewer, irrelevant results on Upwork search engine.
 APIFY_SEARCH_QUERIES = [
-    # Niche-specific: GeoDirectory, HivePress, directories, job boards
-    "GeoDirectory HivePress Brilliant Directories ListingPro WP Job Manager classified real estate",
-    # General WP dev: WooCommerce, Elementor, membership, speed, general dev
-    "WordPress WooCommerce Elementor MemberPress speed optimization developer directory",
+    "geodirectory",           # Tier-1 niche — highest value, most specific
+    "hivepress",              # Tier-1 niche — marketplace builder
+    "directory wordpress",    # Directory/listing sites — broad catch
+    "woocommerce developer",  # WooCommerce — high budget jobs
+    "wordpress developer",    # General WP — largest job pool
+    "wordpress plugin",       # Plugin/custom dev
 ]
 
 # Original keywords — kept for client-side tagging & scoring context
@@ -234,7 +237,7 @@ def scrape_jobs_apify() -> list:
     all_jobs  = []
     seen_urls = set()
 
-    print(f"\n[{now_str()}] Apify scraping ({len(APIFY_SEARCH_QUERIES)} queries → {len(APIFY_KEYWORDS)} keywords)...\n")
+    print(f"\n[{now_str()}] Apify scraping ({len(APIFY_SEARCH_QUERIES)} individual keyword queries)...\n")
 
     for query in APIFY_SEARCH_QUERIES:
         try:
