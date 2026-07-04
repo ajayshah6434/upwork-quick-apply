@@ -165,8 +165,9 @@ def notify_skill_jobs(skill_jobs: list, sheet_url: str = None):
 
     cards = ""
     for i, p in enumerate(skill_jobs, 1):
-        score  = p.get("score_result", {}).get("final_score", "?")
-        reason = p.get("score_result", {}).get("reason", "")
+        score    = p.get("score_result", {}).get("final_score", "?")
+        reason   = p.get("score_result", {}).get("reason", "")
+        job_link = p.get("apply_link", p.get("url", "#"))
         cards += (
             f'<div style="background:#fffbea;border-left:4px solid #f4a400;border-radius:6px;padding:16px;margin:12px 0;">'
             f'<p style="margin:0 0 6px;font-size:16px;font-weight:600;color:#0d0d0d;">{i}. {p["title"]}</p>'
@@ -174,7 +175,7 @@ def notify_skill_jobs(skill_jobs: list, sheet_url: str = None):
             f'\U0001f4b0 {p["budget"]} &nbsp;|&nbsp; \U0001f3af {score}% score'
             f'&nbsp;|&nbsp; \u23f1 {p.get("posted","just now")}</p>'
             f'<p style="margin:0 0 12px;font-size:13px;color:#777;font-style:italic;">\u26a0\ufe0f {reason}</p>'
-            f'<a href="{p.get(\'apply_link\', p.get(\'url\', \'#\'))}" '
+            f'<a href="{job_link}" '
             f'style="display:inline-block;background:#f4a400;color:#fff;'
             f'padding:8px 18px;border-radius:5px;text-decoration:none;font-size:13px;font-weight:600;">'
             f'View Job \u2192</a></div>'
