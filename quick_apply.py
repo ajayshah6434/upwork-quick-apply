@@ -21,7 +21,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 from job_scorer import score_job, print_score_report
-from notifier import notify_new_jobs
+from notifier import notify_new_jobs, notify_skill_jobs
 from sheets_updater import save_jobs_to_sheet
 
 load_dotenv()
@@ -501,6 +501,12 @@ def main():
 
     if not qualified:
         print(f"[{now_str()}] Koi job 65% threshold cross nahi kar paya.")
+        if skill_jobs:
+            print(f"  📚 {len(skill_jobs)} SKILL jobs mile (35-65%) — email bhej raha hoon...")
+            notify_skill_jobs(skill_jobs, sheet_url=sheet_url)
+            print(f"  ✅ SKILL notification email sent!")
+        else:
+            print(f"  ℹ️  Koi SKILL job bhi nahi mila is run mein.")
         if sheet_url:
             print(f"  📊 Scored jobs sheet mein saved hain: {sheet_url}")
         return
