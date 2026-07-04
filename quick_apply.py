@@ -493,8 +493,16 @@ def main():
         seen.add(j["id"])
     save_seen_jobs(seen)
 
+    # ── Google Sheets: sabhi scored jobs save karo (APPLY + SKILL + SKIP) ────
+    # NOTE: Yeh pehle hota hai — chahe koi qualify kare ya na kare,
+    #       sheet mein sab log hota hai taaki user dekh sake.
+    print(f"\n📊 Google Sheet update kar raha hoon...")
+    sheet_url = save_jobs_to_sheet(qualified, skill_jobs, skipped)
+
     if not qualified:
         print(f"[{now_str()}] Koi job 65% threshold cross nahi kar paya.")
+        if sheet_url:
+            print(f"  📊 Scored jobs sheet mein saved hain: {sheet_url}")
         return
 
     top_jobs  = qualified[:MAX_PROPOSALS]
@@ -505,10 +513,6 @@ def main():
         job["cover_letter"] = generate_cover_letter(job)
         proposals.append(job)
         time.sleep(1)
-
-    # ── Google Sheets: save all scored jobs, get URL for email ────────────────
-    print(f"\n📊 Google Sheet update kar raha hoon...")
-    sheet_url = save_jobs_to_sheet(proposals, skill_jobs, skipped)
 
     notify_new_jobs(proposals, sheet_url=sheet_url)
     print(f"\n✅ {len(proposals)} proposals ready! Email sent.")
