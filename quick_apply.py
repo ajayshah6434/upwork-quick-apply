@@ -238,7 +238,13 @@ def scrape_jobs_apify() -> list:
     for query in APIFY_SEARCH_QUERIES:
         try:
             run = client.actor(APIFY_ACTOR).call(
-                run_input={"query": query, "maxJobAge": {"value": 24, "unit": "hours"}},
+                run_input={
+                    "query":           query,
+                    "maxJobAge":       {"value": 24, "unit": "hours"},
+                    "sortOrder":       "newest",          # Freshest jobs first
+                    "resultsPerPage":  50,                # Max results per page
+                    "experienceLevel": ["intermediate", "expert"],  # Skip entry-level/low-budget
+                },
             )
             dataset_id = run.get("defaultDatasetId", "")
             if not dataset_id:
