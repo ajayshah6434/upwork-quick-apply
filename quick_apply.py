@@ -29,7 +29,7 @@ load_dotenv()
 # ── Config ────────────────────────────────────────────────────────────────────
 SEEN_JOBS_FILE      = "seen_jobs.json"
 MAX_PROPOSALS       = 5
-MIN_BUDGET          = 50
+MIN_BUDGET          = 200
 ACTIVE_HOURS_START  = 9    # 9 AM IST
 ACTIVE_HOURS_END    = 24   # Midnight IST
 SKIP_SUNDAY         = True
@@ -42,12 +42,20 @@ APIFY_ACTOR = "neatrat/upwork-job-scraper"
 # Short keywords = more results (same as searching manually on Upwork).
 # Long combined strings = fewer, irrelevant results on Upwork search engine.
 APIFY_SEARCH_QUERIES = [
-    "geodirectory",           # Tier-1 niche — highest value, most specific
-    "hivepress",              # Tier-1 niche — marketplace builder
-    "directory wordpress",    # Directory/listing sites — broad catch
-    "woocommerce developer",  # WooCommerce — high budget jobs
-    "wordpress developer",    # General WP — largest job pool
-    "wordpress plugin",       # Plugin/custom dev
+    # Core plugin-specific (highest intent)
+    "geodirectory",                  # Tier-1 niche — highest value
+    "hivepress",                     # Tier-1 niche — marketplace builder
+    "brilliant directories",         # Tier-1 niche — SaaS directory platform
+    # Problem-based (clients describe project, not plugin name)
+    "business directory website",    # Very common client phrasing
+    "listing website wordpress",     # Listing/directory sites
+    "directory plugin wordpress",    # Plugin-focused search
+    "local directory website",       # Local business directories
+    "marketplace wordpress",         # Marketplace/listing sites
+    # Broader WordPress (lower priority)
+    "wordpress directory",           # General directory catch
+    "woocommerce developer",         # WooCommerce — high budget
+    "wordpress plugin developer",    # Plugin dev — large pool
 ]
 
 # Original keywords — kept for client-side tagging & scoring context
