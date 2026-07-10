@@ -1,29 +1,5 @@
 [
   {
-    "date": "2026-07-06 08:33",
-    "title": "Refresh Existing WordPress Website Using Elementor",
-    "url": "https://www.upwork.com/jobs/Refresh-Existing-span-class-highlight-WordPress-span-Website-Using-Elementor_~022073998153773732172/",
-    "budget": "$100 fixed",
-    "score": 32,
-    "reason": "Skill match hai but score 32% \u2014 Seekhne layak: Budget severely mismatched to scope: $100 for design refresh + UX improvements is unrealistic | Unverified payment + new client = flight risk"
-  },
-  {
-    "date": "2026-07-06 08:33",
-    "title": "Convert a figma layout to woocommerce product page",
-    "url": "https://www.upwork.com/jobs/Convert-figma-layout-span-class-highlight-woocommerce-span-product-page_~022074019368211854864/",
-    "budget": "$100 fixed",
-    "score": 32,
-    "reason": "Skill match hai but score 32% \u2014 Seekhne layak: Unverified payment + new client = high risk of non-payment | $100 for Figma-to-WooCommerce conversion is significantly underpriced (typically $300-800)"
-  },
-  {
-    "date": "2026-07-06 08:33",
-    "title": "WordPress Developer Needed for Domestic Helper Marketplace / Recruitment Platform",
-    "url": "https://www.upwork.com/jobs/WordPress-Developer-Needed-for-Domestic-Helper-Marketplace-Recruitment-Platform_~022074043622441629200/",
-    "budget": "$250 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u2014 Seekhne layak: Unverified payment method on new client (high risk of non-payment) | Budget severely underpriced: $250 for a marketplace platform with payments, user roles, profiles, search = 10-15 hours minimum work"
-  },
-  {
     "date": "2026-07-06 12:59",
     "title": "Expert WooCommerce Developer Needed for a Modern T-Shirt E-commerce Website",
     "url": "https://www.upwork.com/jobs/Expert-WooCommerce-span-class-highlight-Developer-span-Needed-for-Modern-Shirt-commerce-Website_~022074053987018340392/",
@@ -398,5 +374,29 @@
     "budget": "$500 fixed",
     "score": 34,
     "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Vague job description - no mention of features, functionality, or timeline | New, unverified client with zero payment history (high risk)"
+  },
+  {
+    "date": "2026-07-10 08:37",
+    "title": "WordPress Site Build for N&S",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Site-Build-for-amp_~022075447192300540148/",
+    "budget": "$400 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Very vague job description - no specific requirements, design references, or timeline | New unverified client = payment risk despite fixed budget"
+  },
+  {
+    "date": "2026-07-10 08:37",
+    "title": "Build a Professional Execitive Leadership & personal Brand WEbsite (Wordpress)",
+    "url": "https://www.upwork.com/jobs/Build-Professional-Execitive-Leadership-amp-personal-Brand-WEbsite-span-class-highlight-Wordpress-span_~022075358516519730846/",
+    "budget": "$550 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job description is incomplete/truncated ('Abou' cuts off) - suggests rushed posting or low attention to detail | New client with unverified payment method (0/25 on client quality)"
+  },
+  {
+    "date": "2026-07-10 08:37",
+    "title": "Affiliate & Growth Manager Needed for Guitar Tabs and Online Guitar Course",
+    "url": "https://www.upwork.com/jobs/Affiliate-Growth-Manager-Needed-for-Guitar-Tabs-and-Online-Guitar-Course_~022075443084199653171/",
+    "budget": "$750 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job title says 'Affiliate & Growth Manager' but description cuts off mid-sentence ('build a clear affiliate...') | Scope is vague - 'first project' implies undefined deliverables and potential scope creep"
   }
 ]
