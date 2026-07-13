@@ -1,37 +1,5 @@
 [
   {
-    "date": "2026-07-08 08:59",
-    "title": "Revamp WordPress Website",
-    "url": "https://www.upwork.com/jobs/Revamp-span-class-highlight-WordPress-span-Website_~022074721651249800240/",
-    "budget": "$1000 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job description is vague - no specific technical details or deliverables listed | New, unverified client with payment risk (0/25 score)"
-  },
-  {
-    "date": "2026-07-08 11:21",
-    "title": "Directory Website Build, 25% Design, 75% Development (WordPress)",
-    "url": "https://www.upwork.com/jobs/span-class-highlight-Directory-span-span-class-highlight-Website-span-Build-Design-Development-WordPress_~022074562812809382621/",
-    "budget": "$250 fixed",
-    "score": 50,
-    "reason": "Skill match hai but score 50% \u00e2\u0080\u0094 Seekhne layak: Could not parse AI response"
-  },
-  {
-    "date": "2026-07-08 14:42",
-    "title": "Luxury Vacation Rental Website Development",
-    "url": "https://www.upwork.com/jobs/Luxury-Vacation-Rental-Website-span-class-highlight-Development-span_~022074824338085126349/",
-    "budget": "$750 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New, unverified client with 0 payment history = high risk | Scope is substantial for $750: full website + booking system + integrations"
-  },
-  {
-    "date": "2026-07-08 14:42",
-    "title": "Divi 5  (WordPress) Website Development from a Figma Design",
-    "url": "https://www.upwork.com/jobs/Divi-span-class-highlight-WordPress-span-Website-span-class-highlight-Development-span-from-Figma-Design_~022074820790985796639/",
-    "budget": "$220 fixed",
-    "score": 32,
-    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: New client with unverified payment (high risk for scope creep/non-payment) | $220 for 10-page Divi build is LOW - ~$22/page suggests underpriced scope"
-  },
-  {
     "date": "2026-07-08 14:42",
     "title": "SEO and Wordpress",
     "url": "https://www.upwork.com/jobs/SEO-and-Wordpress_~022074860692967328477/",
@@ -398,5 +366,37 @@
     "budget": "$200 fixed",
     "score": 32,
     "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Job description is EXTREMELY vague ('briefly describe' placeholder not filled in) | New, unverified client = high payment risk"
+  },
+  {
+    "date": "2026-07-13 17:14",
+    "title": "Website for nutrition company",
+    "url": "https://www.upwork.com/jobs/Website-for-nutrition-company_~022076672405241655735/",
+    "budget": "$2000 fixed",
+    "score": 30,
+    "reason": "Skill match hai but score 30% \u00e2\u0080\u0094 Seekhne layak: Job description is extremely vague - no specific requirements listed | New client with unverified payment (highest risk category)"
+  },
+  {
+    "date": "2026-07-13 17:14",
+    "title": "WordPress Developer Needed:for Fixes, Plugin Cleanup & Front-End Data Page (WPResident Theme)",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Developer-Needed-for-Fixes-span-class-highlight-Plugin-span-Cleanup-amp-Front-End-Data-Page-WPResident-Theme_~022076622581543032510/",
+    "budget": "$500 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New, unverified client with payment method not confirmed (high risk) | Vague scope: 'fixes', 'plugin cleanup', 'front-end data page' lack specifics\u2014what exactly is broken?"
+  },
+  {
+    "date": "2026-07-13 17:14",
+    "title": "WordPress Developer Needed:for Fixes, Plugin Cleanup & Front-End Data Page (WPResident Theme)",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Developer-Needed-for-Fixes-Plugin-Cleanup-amp-Front-End-Data-Page-WPResident-Theme_~022076622581543032510/",
+    "budget": "$500 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New, unverified client = payment risk | 5+ year idle project = potential scope creep/unclear requirements"
+  },
+  {
+    "date": "2026-07-13 17:14",
+    "title": "WordPress Developer Needed:for Fixes, Plugin Cleanup & Front-End Data Page (WPResident Theme)",
+    "url": "https://www.upwork.com/jobs/WordPress-span-class-highlight-Developer-span-Needed-for-Fixes-Plugin-Cleanup-amp-Front-End-Data-Page-WPResident-Theme_~022076622581543032510/",
+    "budget": "$500 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: NEW CLIENT - unverified payment method (high trust risk) | 5-year-old idle project = likely technical debt/deprecation issues"
   }
 ]
