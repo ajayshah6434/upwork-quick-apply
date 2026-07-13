@@ -1,45 +1,5 @@
 [
   {
-    "date": "2026-07-07 12:09",
-    "title": "Content Marketer for Healthcare Site",
-    "url": "https://www.upwork.com/jobs/Content-Marketer-for-Healthcare-Site_~022074318031842320589/",
-    "budget": "N/A",
-    "score": 32,
-    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: This is a FULL-TIME EMPLOYMENT posting, not a freelance job | No budget listed (red flag for contract work)"
-  },
-  {
-    "date": "2026-07-07 19:34",
-    "title": "WordPress Re-Skin",
-    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Skin_~022074514704487572528/",
-    "budget": "N/A",
-    "score": 37,
-    "reason": "Skill match hai but score 37% \u00e2\u0080\u0094 Seekhne layak: Could not parse AI response"
-  },
-  {
-    "date": "2026-07-08 06:13",
-    "title": "Complete Technical SEO, Google Indexing, Security & Website Optimization for FERSHelp.net",
-    "url": "https://www.upwork.com/jobs/Complete-Technical-SEO-Google-Indexing-Security-amp-span-class-highlight-Website-span-Optimization-for-FERSHelp-net_~022074605892989248560/",
-    "budget": "$700 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job description is incomplete/truncated (cuts off mid-sentence) | Vague scope: 'technical SEO, indexing, security & optimization' is extremely broad"
-  },
-  {
-    "date": "2026-07-08 08:59",
-    "title": "Update WP site and PHP",
-    "url": "https://www.upwork.com/jobs/Update-site-and-PHP_~022074538004704987869/",
-    "budget": "$200 fixed",
-    "score": 32,
-    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Extremely vague description - no specific plugins/errors mentioned | New client with unverified payment = high risk"
-  },
-  {
-    "date": "2026-07-08 08:59",
-    "title": "Make my website communicate with n8n",
-    "url": "https://www.upwork.com/jobs/Make-website-communicate-with-n8n_~022074517628857090869/",
-    "budget": "$2222 fixed",
-    "score": 42,
-    "reason": "Skill match hai but score 42% \u00e2\u0080\u0094 Seekhne layak: Could not parse AI response"
-  },
-  {
     "date": "2026-07-08 08:59",
     "title": "Revamp WordPress Website",
     "url": "https://www.upwork.com/jobs/Revamp-span-class-highlight-WordPress-span-Website_~022074721651249800240/",
@@ -398,5 +358,45 @@
     "budget": "$300 fixed",
     "score": 32,
     "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Very vague description - no specific deliverables listed | Unrealistic scope for budget: 'custom layouts, performance optimization, mobile responsiveness' for $300 is severely underpriced"
+  },
+  {
+    "date": "2026-07-13 13:46",
+    "title": "Senior WooCommerce / WordPress Developer (10+ yrs, hand-coded PHP, healthcare e-commerce)",
+    "url": "https://www.upwork.com/jobs/Senior-span-class-highlight-WooCommerce-span-WordPress-span-class-highlight-Developer-span-yrs-hand-coded-PHP-healthcare-commerce_~022076648215786034951/",
+    "budget": "N/A",
+    "score": 37,
+    "reason": "Skill match hai but score 37% \u00e2\u0080\u0094 Seekhne layak: Could not parse AI response"
+  },
+  {
+    "date": "2026-07-13 13:46",
+    "title": "Website Designer Needed for Car Dealership Website Redesign",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-Website-span-Designer-Needed-for-Car-Dealership-span-class-highlight-Website-span-Redesign_~022076630053777846526/",
+    "budget": "$300 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: New client with unverified payment = HIGH RISK | Job description incomplete/cut off mid-sentence = poor communication signal"
+  },
+  {
+    "date": "2026-07-13 13:46",
+    "title": "Build \"Integrations\" Page  and template in Elementor (WordPress)",
+    "url": "https://www.upwork.com/jobs/Build-Integrations-Page-and-template-Elementor-span-class-highlight-WordPress-span_~022076482568251827859/",
+    "budget": "$200 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: New, unverified client with payment method not confirmed (high risk) | Budget severely underpriced: $200 for custom Elementor template build is 2-3 hours MAX at $25/hr, leaving zero buffer"
+  },
+  {
+    "date": "2026-07-13 13:46",
+    "title": "WordPress Developer Needed \u2014 Fix Payment/Checkout Issues on Health (YMYL)",
+    "url": "https://www.upwork.com/jobs/WordPress-span-class-highlight-Developer-span-Needed-Fix-Payment-Checkout-Issues-Health-YMYL_~022076652816123048190/",
+    "budget": "$200 fixed",
+    "score": 40,
+    "reason": "Skill match hai but score 40% \u00e2\u0080\u0094 Seekhne layak: Could not parse AI response"
+  },
+  {
+    "date": "2026-07-13 13:46",
+    "title": "WordPress Developer Needed \u2014 Fix Payment/Checkout Issues on Health (YMYL)",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-span-class-highlight-Developer-span-Needed-Fix-Payment-Checkout-Issues-Health-YMYL_~022076652816123048190/",
+    "budget": "$200 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Job description is EXTREMELY vague ('briefly describe' placeholder not filled in) | New, unverified client = high payment risk"
   }
 ]
