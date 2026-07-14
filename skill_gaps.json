@@ -1,14 +1,6 @@
 [
   {
     "date": "2026-07-10 05:06",
-    "title": "Custom WordPress Website for Established Restaurant (Toast + Local SEO)",
-    "url": "https://www.upwork.com/jobs/Custom-span-class-highlight-WordPress-span-Website-for-Established-Restaurant-Toast-Local-SEO_~022075411120812183796/",
-    "budget": "$3000 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New client with unverified payment - high risk | Job description incomplete/truncated ('looking for experienced web designer/developer or small agenc...')"
-  },
-  {
-    "date": "2026-07-10 05:06",
     "title": "Website Developer for Cabinet Business",
     "url": "https://www.upwork.com/jobs/Website-span-class-highlight-Developer-span-for-Cabinet-Business_~022075285591712526131/",
     "budget": "$500 fixed",
@@ -398,5 +390,13 @@
     "budget": "N/A",
     "score": 39,
     "reason": "Skill match hai but score 39% \u00e2\u0080\u0094 Seekhne layak: Budget N/A is a massive red flag - classic scope creep setup | Job description is vague ('user-friendly and efficient' = undefined requirements)"
+  },
+  {
+    "date": "2026-07-14 18:25",
+    "title": "WordPress Developer for Booking Website",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-span-class-highlight-Developer-span-for-Booking-Website_~022076978510146049799/",
+    "budget": "$700 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job description is vague - no mention of specific plugins (GeoDirectory/HivePress not needed here) | Scope creep risk: booking system + payment gateway + user accounts + mobile-friendly + security = substantial work for $700"
   }
 ]
