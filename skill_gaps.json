@@ -1,13 +1,5 @@
 [
   {
-    "date": "2026-07-10 05:06",
-    "title": "Website Developer for Cabinet Business",
-    "url": "https://www.upwork.com/jobs/Website-span-class-highlight-Developer-span-for-Cabinet-Business_~022075285591712526131/",
-    "budget": "$500 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Vague job description - no mention of features, functionality, or timeline | New, unverified client with zero payment history (high risk)"
-  },
-  {
     "date": "2026-07-10 08:37",
     "title": "WordPress Site Build for N&S",
     "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Site-Build-for-amp_~022075447192300540148/",
@@ -398,5 +390,13 @@
     "budget": "$700 fixed",
     "score": 34,
     "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job description is vague - no mention of specific plugins (GeoDirectory/HivePress not needed here) | Scope creep risk: booking system + payment gateway + user accounts + mobile-friendly + security = substantial work for $700"
+  },
+  {
+    "date": "2026-07-15 05:50",
+    "title": "Build responsive WordPress site - Design already Complete - Guidebook provided",
+    "url": "https://www.upwork.com/jobs/Build-responsive-span-class-highlight-WordPress-span-site-Design-already-Complete-Guidebook-provided_~022077105040330783553/",
+    "budget": "$200 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Severely underbudgeted: $200 for 11-page WordPress site with forms, integrations, SEO optimization, and mobile responsiveness | Job description uses vague language ('just need to', 'ensure everything') suggesting scope ambiguity"
   }
 ]
