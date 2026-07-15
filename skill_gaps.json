@@ -1,29 +1,5 @@
 [
   {
-    "date": "2026-07-10 08:37",
-    "title": "Affiliate & Growth Manager Needed for Guitar Tabs and Online Guitar Course",
-    "url": "https://www.upwork.com/jobs/Affiliate-Growth-Manager-Needed-for-Guitar-Tabs-and-Online-Guitar-Course_~022075443084199653171/",
-    "budget": "$750 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Job title says 'Affiliate & Growth Manager' but description cuts off mid-sentence ('build a clear affiliate...') | Scope is vague - 'first project' implies undefined deliverables and potential scope creep"
-  },
-  {
-    "date": "2026-07-10 12:09",
-    "title": "One-time on-page and technical SEO setup for a WordPress poetry website",
-    "url": "https://www.upwork.com/jobs/One-time-page-and-technical-SEO-setup-for-span-class-highlight-WordPress-span-poetry-span-class-highlight-website-span_~022075288049314663870/",
-    "budget": "$250 fixed",
-    "score": 40,
-    "reason": "Skill match hai but score 40% \u00e2\u0080\u0094 Seekhne layak: Could not parse AI response"
-  },
-  {
-    "date": "2026-07-10 14:47",
-    "title": "WordPress Migration to Native Setup",
-    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Migration-Native-Setup_~022075574957177172346/",
-    "budget": "$5000 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New, unverified payment client = high financial risk | Job description cuts off mid-sentence (incomplete requirements)"
-  },
-  {
     "date": "2026-07-10 17:11",
     "title": "GeoDirectory Plugin Expert Needed",
     "url": "https://www.upwork.com/jobs/span-class-highlight-GeoDirectory-span-Plugin-Expert-Needed_~022075621075325344913/",
@@ -398,5 +374,29 @@
     "budget": "$400 fixed",
     "score": 32,
     "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Job description is incomplete/truncated (cuts off mid-sentence at reference section) | Vague scope: 'design, build, and launch' is extremely broad for $400"
+  },
+  {
+    "date": "2026-07-15 11:15",
+    "title": "WooCommerce Store Developer",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WooCommerce-span-Store-span-class-highlight-Developer-span_~022077345395815185246/",
+    "budget": "$750 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New unverified client (0/25 risk score) - payment security unknown | Weak skill match: WooCommerce is Tier 3 for Bharat (directory sites \u2260 ecommerce)"
+  },
+  {
+    "date": "2026-07-15 11:15",
+    "title": "WooCommerce Store Developer",
+    "url": "https://www.upwork.com/jobs/WooCommerce-Store-span-class-highlight-Developer-span_~022077345395815185246/",
+    "budget": "$750 fixed",
+    "score": 34,
+    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Bharat has NO proven WooCommerce experience (Tier 3 match only) \u2014 profile is directory/listing focused, not e-commerce | New unverified client = payment risk despite good job posting quality"
+  },
+  {
+    "date": "2026-07-15 11:15",
+    "title": "Website Design & Development for Merch Brand on Wordpress (Product Catalog, Quote Requests Only)",
+    "url": "https://www.upwork.com/jobs/Website-Design-amp-span-class-highlight-Development-span-for-Merch-Brand-Wordpress-Product-Catalog-Quote-Requests-Only_~022077110202734672705/",
+    "budget": "$400 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Budget severely mismatched to scope: $400 for design + build + launch is unrealistic | New client with unverified payment = high risk of non-payment"
   }
 ]
