@@ -1,29 +1,5 @@
 [
   {
-    "date": "2026-07-11 11:20",
-    "title": "Wordpress website developer",
-    "url": "https://www.upwork.com/jobs/span-class-highlight-Wordpress-span-span-class-highlight-website-span-developer_~022075813316031050280/",
-    "budget": "$300 fixed",
-    "score": 32,
-    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Job description is incomplete/truncated (cuts off mid-sentence at 'fu') | New, unverified client = payment risk"
-  },
-  {
-    "date": "2026-07-11 11:20",
-    "title": "WordPress Migration to Native Setup",
-    "url": "https://www.upwork.com/jobs/WordPress-Migration-Native-Setup_~022075574957177172346/",
-    "budget": "$5000 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New unverified client = payment risk (highest concern) | Job description incomplete/truncated at end ('complex...' trails off)"
-  },
-  {
-    "date": "2026-07-11 13:37",
-    "title": "Professional WordPress Website for Tourism We are Larapinta Shuttle, based in Alice Springs",
-    "url": "https://www.upwork.com/jobs/Professional-span-class-highlight-WordPress-span-Website-for-Tourism-are-Larapinta-Shuttle-based-span-class-highlight-span-Alice-Springs_~022075905312278397139/",
-    "budget": "$1500 fixed",
-    "score": 34,
-    "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: Description is vague and generic\u2014no specific features mentioned (directory? booking? gallery?) | New client with unverified payment history = higher non-payment risk"
-  },
-  {
     "date": "2026-07-11 13:37",
     "title": "WordPress Exam Preparation Website Developer",
     "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Exam-Preparation-Website-span-class-highlight-Developer-span_~022075837828237944467/",
@@ -398,5 +374,29 @@
     "budget": "$1500 fixed",
     "score": 34,
     "reason": "Skill match hai but score 34% \u00e2\u0080\u0094 Seekhne layak: New client with unverified payment method (high risk) | Job description is INCOMPLETE - cut off mid-sentence at portfolio requirement (suggests rushed/careless posting)"
+  },
+  {
+    "date": "2026-07-16 04:27",
+    "title": "WordPress Webmaster | Technical Performance, Security & Plugin Optimization",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Webmaster-Technical-Performance-Security-amp-Plugin-Optimization_~022077505519874939066/",
+    "budget": "$200 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Job description is INCOMPLETE/truncated (cuts off mid-sentence at 'WordPress pl') | New, unverified client with payment method not confirmed (high risk)"
+  },
+  {
+    "date": "2026-07-16 04:27",
+    "title": "WordPress Webmaster | Technical Performance, Security & Plugin Optimization",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Webmaster-Technical-Performance-Security-amp-span-class-highlight-Plugin-span-Optimization_~022077505519874939066/",
+    "budget": "$200 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: Job description is incomplete/truncated (cuts off mid-sentence) | New, unverified client with no payment history (high risk)"
+  },
+  {
+    "date": "2026-07-16 04:27",
+    "title": "WordPress Website for Junk Removal",
+    "url": "https://www.upwork.com/jobs/span-class-highlight-WordPress-span-Website-for-Junk-Removal_~022077586932981168762/",
+    "budget": "$400 fixed",
+    "score": 32,
+    "reason": "Skill match hai but score 32% \u00e2\u0080\u0094 Seekhne layak: New client with unverified payment (high risk for $400) | Job description incomplete/cut off mid-sentence ('Pricing Page should be all...')"
   }
 ]
